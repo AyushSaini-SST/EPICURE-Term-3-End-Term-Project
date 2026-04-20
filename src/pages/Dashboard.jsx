@@ -1,4 +1,4 @@
-import { useMemo, useCallback, useState } from 'react';
+import { useMemo, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useInventory, getExpiryStatus, CATEGORIES } from '../context/InventoryContext';
 import { useShoppingList } from '../context/ShoppingListContext';
@@ -9,7 +9,7 @@ import EmptyState from '../components/EmptyState';
  * Dashboard — Overview page with stats, expiring items, and quick actions.
  */
 export default function Dashboard() {
-  const { sortedItems, stats, loading, useItem, deleteItem } = useInventory();
+  const { sortedItems, stats, loading, consumeItem, deleteItem } = useInventory();
   const { addToShoppingList, totalCount } = useShoppingList();
   const navigate = useNavigate();
 
@@ -27,7 +27,7 @@ export default function Dashboard() {
   }, [sortedItems]);
 
   const handleUseItem = useCallback(async (item) => {
-    const result = await useItem(item);
+    const result = await consumeItem(item);
     if (result.fullyUsed) {
       await addToShoppingList({
         name: item.name,
@@ -37,7 +37,7 @@ export default function Dashboard() {
         source: 'auto',
       });
     }
-  }, [useItem, addToShoppingList]);
+  }, [consumeItem, addToShoppingList]);
 
   const handleDeleteItem = useCallback(async (item) => {
     // Auto-add to shopping list before deleting

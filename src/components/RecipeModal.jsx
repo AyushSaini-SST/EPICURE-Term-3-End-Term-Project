@@ -253,7 +253,7 @@ export default function RecipeModal({ recipe, onClose }) {
             const steps = recipe.instructions
               .split(/\r?\n/)
               .map(s => s.replace(/^(STEP\s*\d+[:.]*\s*)/i, '').trim())
-              .map(s => s.replace(/^\d+[.):\-]\s*/, '').trim())
+              .map(s => s.replace(/^\d+[.):-]\s*/, '').trim())
               .filter(s => s.length > 2);
 
             return (

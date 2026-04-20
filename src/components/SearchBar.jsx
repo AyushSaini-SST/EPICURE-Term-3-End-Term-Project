@@ -15,8 +15,11 @@ export default function SearchBar({ value, onChange, placeholder = 'Search...', 
 
   // Sync local state when external value changes
   useEffect(() => {
-    setLocalValue(value);
-  }, [value]);
+    if (localValue !== value) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setLocalValue(value);
+    }
+  }, [value, localValue]);
 
   const handleChange = useCallback((e) => {
     const newValue = e.target.value;

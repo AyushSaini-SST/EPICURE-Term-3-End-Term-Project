@@ -7,6 +7,8 @@ import {
 } from 'firebase/auth';
 import { auth, isFirebaseConfigured } from '../firebase';
 
+/* eslint-disable react-refresh/only-export-components */
+
 const AuthContext = createContext();
 
 export function useAuth() {
@@ -37,6 +39,7 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     if (!isFirebaseConfigured) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setLoading(false);
       return;
     }

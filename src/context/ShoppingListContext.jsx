@@ -1,5 +1,6 @@
 import { createContext, useContext, useReducer, useCallback, useMemo, useEffect } from 'react';
 import { db, auth, isFirebaseConfigured } from '../firebase';
+/* eslint-disable react-refresh/only-export-components */
 import {
   collection,
   addDoc,

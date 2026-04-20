@@ -12,7 +12,7 @@ import EmptyState from '../components/EmptyState';
  * Uses useMemo for filtered + sorted list.
  */
 export default function Inventory() {
-  const { sortedItems, addItem, updateItem, deleteItem, useItem, loading } = useInventory();
+  const { sortedItems, addItem, updateItem, deleteItem, consumeItem, loading } = useInventory();
   const { addToShoppingList } = useShoppingList();
 
   const [showForm, setShowForm] = useState(false);
@@ -98,7 +98,7 @@ export default function Inventory() {
   }, []);
 
   const handleUseItem = useCallback(async (item) => {
-    const result = await useItem(item);
+    const result = await consumeItem(item);
     if (result.fullyUsed) {
       // Auto-add to shopping list when item fully used up
       await addToShoppingList({
@@ -109,7 +109,7 @@ export default function Inventory() {
         source: 'auto',
       });
     }
-  }, [useItem, addToShoppingList]);
+  }, [consumeItem, addToShoppingList]);
 
   const handleDeleteItem = useCallback(async (item) => {
     // Auto-add to shopping list before deleting

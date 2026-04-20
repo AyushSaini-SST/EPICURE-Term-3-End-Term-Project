@@ -1,5 +1,6 @@
 import { createContext, useContext, useReducer, useCallback, useMemo, useEffect, useState } from 'react';
 import { db, auth, isFirebaseConfigured } from '../firebase';
+/* eslint-disable react-refresh/only-export-components */
 import {
   collection,
   addDoc,
@@ -234,7 +235,7 @@ export function InventoryProvider({ children }) {
     }
   }, [addToast]);
 
-  const useItem = useCallback(async (item, quantityUsed = null) => {
+  const consumeItem = useCallback(async (item, quantityUsed = null) => {
     try {
       const qtyToUse = quantityUsed || 1;
       const newQty = item.quantity - qtyToUse;
@@ -292,10 +293,10 @@ export function InventoryProvider({ children }) {
     addItem,
     updateItem,
     deleteItem,
-    useItem,
+    consumeItem,
     toasts,
     addToast,
-  }), [state.items, sortedItems, stats, state.loading, state.error, addItem, updateItem, deleteItem, useItem, toasts, addToast]);
+  }), [state.items, sortedItems, stats, state.loading, state.error, addItem, updateItem, deleteItem, consumeItem, toasts, addToast]);
 
   return (
     <InventoryContext.Provider value={value}>

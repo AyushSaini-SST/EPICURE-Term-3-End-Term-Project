@@ -1,16 +1,56 @@
-# React + Vite
+# PantryPulse - Inventory Management App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A React application built with Vite for managing pantry inventory, recipes, and shopping lists using Firebase.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- User authentication with Firebase Auth
+- Inventory tracking
+- Recipe management
+- Shopping list generation
+- Real-time data with Firestore
 
-## React Compiler
+## Setup
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Copy the environment file and configure Firebase:
+   ```bash
+   cp .env.example .env
+   ```
+   Edit `.env` with your Firebase project credentials.
 
-## Expanding the ESLint configuration
+4. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Deployment
+
+For deployment, ensure your hosting platform has the environment variables set:
+
+- `VITE_FIREBASE_API_KEY`
+- `VITE_FIREBASE_AUTH_DOMAIN`
+- `VITE_FIREBASE_PROJECT_ID`
+- `VITE_FIREBASE_STORAGE_BUCKET`
+- `VITE_FIREBASE_MESSAGING_SENDER_ID`
+- `VITE_FIREBASE_APP_ID`
+- `VITE_FIREBASE_MEASUREMENT_ID`
+
+Build the project:
+```bash
+npm run build
+```
+
+Deploy the `dist` folder to your hosting service (e.g., Vercel, Netlify, Firebase Hosting).
+
+## Tech Stack
+
+- React 18
+- Vite
+- Firebase (Auth, Firestore)
+- Tailwind CSS (if used)
+- ESLint
