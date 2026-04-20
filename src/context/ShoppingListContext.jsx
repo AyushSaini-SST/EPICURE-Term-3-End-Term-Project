@@ -15,7 +15,7 @@ import {
 const ShoppingListContext = createContext();
 
 // ── LocalStorage Helpers ────────────────────────────────────
-const LS_KEY = 'smartkitchen_shopping';
+const LS_KEY = 'pantrypulse_shopping';
 
 const loadFromLocalStorage = () => {
   try {

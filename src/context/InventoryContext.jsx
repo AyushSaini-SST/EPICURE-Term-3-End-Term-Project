@@ -15,7 +15,7 @@ import {
 const InventoryContext = createContext();
 
 // ── LocalStorage Helpers ────────────────────────────────────
-const LS_KEY = 'smartkitchen_inventory';
+const LS_KEY = 'pantrypulse_inventory';
 
 const loadFromLocalStorage = () => {
   try {
@@ -207,13 +207,14 @@ export function InventoryProvider({ children }) {
       } else {
         dispatch({ type: 'UPDATE_ITEM', payload: { id: itemId, updates: { ...updates, updatedAt: new Date().toISOString() } } });
       }
-      addToast('Item updated!', 'success');
+      // No generic toast here — callers (like useItem) show their own specific message
     } catch (error) {
       console.error('Update item error:', error);
       addToast('Failed to update item', 'error');
       throw error;
     }
   }, [addToast]);
+
 
   const deleteItem = useCallback(async (itemId) => {
     try {

@@ -62,8 +62,8 @@ export default function Dashboard() {
   return (
     <div className="page-container" id="dashboard-page">
       <div className="page-header">
-        <h1>Dashboard</h1>
-        <p>Welcome back! Here's your kitchen at a glance.</p>
+        <h1>Welcome to Epicure</h1>
+        <p>Your tailored luxury kitchen experience.</p>
       </div>
 
       {/* Stats */}

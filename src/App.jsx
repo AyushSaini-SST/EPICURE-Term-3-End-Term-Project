@@ -1,12 +1,16 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { InventoryProvider } from './context/InventoryContext';
+import { AuthProvider } from './context/AuthContext';
+import { InventoryProvider, useInventory } from './context/InventoryContext';
 import { ShoppingListProvider } from './context/ShoppingListContext';
-import { useInventory } from './context/InventoryContext';
+import ProtectedRoute from './components/ProtectedRoute';
 import Navbar from './components/Navbar';
 import Dashboard from './pages/Dashboard';
 import Inventory from './pages/Inventory';
 import Recipes from './pages/Recipes';
 import ShoppingList from './pages/ShoppingList';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import Landing from './pages/Landing';
 
 /**
  * ToastContainer — Renders toast notifications from InventoryContext.
@@ -14,11 +18,11 @@ import ShoppingList from './pages/ShoppingList';
 function ToastContainer() {
   const { toasts } = useInventory();
 
-  if (toasts.length === 0) return null;
+  if (toasts?.length === 0) return null;
 
   return (
     <div className="toast-container" id="toast-container">
-      {toasts.map(toast => (
+      {toasts?.map(toast => (
         <div key={toast.id} className={`toast ${toast.type}`}>
           {toast.type === 'success' && '✅ '}
           {toast.type === 'warning' && '⚠️ '}
@@ -31,7 +35,7 @@ function ToastContainer() {
 }
 
 /**
- * AppLayout — Inner component that uses contexts (must be inside providers).
+ * AppLayout — Inner component that uses contexts.
  */
 function AppLayout() {
   return (
@@ -39,10 +43,16 @@ function AppLayout() {
       <Navbar />
       <main>
         <Routes>
-          <Route path="/" element={<Dashboard />} />
-          <Route path="/inventory" element={<Inventory />} />
-          <Route path="/recipes" element={<Recipes />} />
-          <Route path="/shopping-list" element={<ShoppingList />} />
+          {/* Public Routes */}
+          <Route path="/" element={<Landing />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+
+          {/* Protected Routes */}
+          <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path="/inventory" element={<ProtectedRoute><Inventory /></ProtectedRoute>} />
+          <Route path="/recipes" element={<ProtectedRoute><Recipes /></ProtectedRoute>} />
+          <Route path="/shopping-list" element={<ProtectedRoute><ShoppingList /></ProtectedRoute>} />
         </Routes>
       </main>
       <ToastContainer />
@@ -56,11 +66,13 @@ function AppLayout() {
 export default function App() {
   return (
     <Router>
-      <InventoryProvider>
-        <ShoppingListProvider>
-          <AppLayout />
-        </ShoppingListProvider>
-      </InventoryProvider>
+      <AuthProvider>
+        <InventoryProvider>
+          <ShoppingListProvider>
+            <AppLayout />
+          </ShoppingListProvider>
+        </InventoryProvider>
+      </AuthProvider>
     </Router>
   );
 }
